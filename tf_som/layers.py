@@ -33,12 +33,8 @@ class LCA(tfkl.Layer):
         self.ws = tf.random.uniform(shape=(d_x, self.N_w),
                                     minval=self.minval,
                                     maxval=self.maxval) # ws: (d_x, N_w)
-        if self.backpropagatable:
-            self.ws = tf.Variable(self.ws, trainable=True)
 
-
-        # if not self.winner_take_all:
-        #     self.batch_norm_layer = tfkl.BatchNormalization(axis=-2)
+        self.ws = tf.Variable(self.ws, trainable=self.backpropagatable)
 
     def call(self, inputs, **kwargs):
 
@@ -51,8 +47,6 @@ class LCA(tfkl.Layer):
         if self.winner_take_all:
             ind_ws = K.argmax(act, axis=-1) # (..., 1)
             act = tf.one_hot(ind_ws, depth=self.N_w, axis=-1) # (..., N_w)
-        # else:
-        #     act = self.batch_norm_layer(act) # (..., N_w)
 
         if 'training' in kwargs and kwargs['training']:
             # move weights closer to inputs
