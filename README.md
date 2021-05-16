@@ -1,5 +1,5 @@
 # tf-som
-Tensorflow self-organizing maps.
+Supercool self-organizing maps in tensorflow
 ![](https://img.shields.io/badge/build-failing-red)
 ![](https://img.shields.io/badge/version-0.0.1-informational)
 
